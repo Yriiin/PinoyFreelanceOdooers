@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Pinoy Freelance Odooers build practical, tailored Odoo solutions for organizations.">
+  <meta name="theme-color" content="#f5f2ec">
+  <title>Pinoy Freelance Odooers | Odoo Development</title>
+  <style>
+    :root {
+      --ink: #1d2826;
+      --muted: #687572;
+      --soft: #f5f2ec;
+      --paper: #fffdf9;
+      --line: #dedfd8;
+      --green: #164b42;
+      --green-dark: #0c302b;
+      --lime: #d7ec75;
+      --orange: #e8875c;
+      --shadow: 0 1.5rem 4rem rgba(23, 45, 40, .09);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--soft);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 3rem));
+      margin-inline: auto;
+    }
+
+    .site-header {
+      padding: 1.5rem 0;
+      background: var(--soft);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: .7rem;
+      color: var(--green-dark);
+      font-size: .95rem;
+      font-weight: 850;
+      letter-spacing: -.02em;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 2rem;
+      height: 2rem;
+      place-items: center;
+      border-radius: .65rem;
+      color: var(--green-dark);
+      background: var(--lime);
+      font-size: .8rem;
+      font-weight: 950;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      color: var(--muted);
+      font-size: .88rem;
+      font-weight: 650;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--green);
+    }
+
+    .nav-cta {
+      padding: .65rem 1rem;
+      border-radius: 999px;
+      color: var(--paper) !important;
+      background: var(--green);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 5.5rem 0 6.5rem;
+      background: var(--soft);
+    }
+
+    .hero::after {
+      position: absolute;
+      right: -9rem;
+      bottom: -11rem;
+      width: 31rem;
+      height: 31rem;
+      border: 1px solid rgba(22, 75, 66, .16);
+      border-radius: 50%;
+      content: "";
+      box-shadow: 0 0 0 3rem rgba(22, 75, 66, .03), 0 0 0 6rem rgba(22, 75, 66, .025);
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, .9fr);
+      align-items: center;
+      gap: 4rem;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      margin: 0 0 1.25rem;
+      color: var(--green);
+      font-size: .76rem;
+      font-weight: 850;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 1.8rem;
+      height: 2px;
+      background: var(--orange);
+      content: "";
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.1;
+      letter-spacing: -.045em;
+    }
+
+    h1 {
+      max-width: 720px;
+      margin: 0;
+      color: var(--green-dark);
+      font-size: clamp(3rem, 7vw, 6.2rem);
+    }
+
+    .hero-copy {
+      max-width: 580px;
+      margin: 1.5rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 2.25rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 3rem;
+      padding: .8rem 1.25rem;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      font-size: .9rem;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-2px);
+    }
+
+    .button-primary {
+      color: var(--paper);
+      background: var(--green);
+      box-shadow: 0 .75rem 1.5rem rgba(22, 75, 66, .18);
+    }
+
+    .button-primary:hover,
+    .button-primary:focus-visible {
+      background: var(--green-dark);
+    }
+
+    .button-secondary {
+      border-color: var(--line);
+      color: var(--green);
+      background: transparent;
+    }
+
+    .button-secondary:hover,
+    .button-secondary:focus-visible {
+      border-color: var(--green);
+    }
+
+    .hero-card {
+      position: relative;
+      min-height: 370px;
+      padding: 2rem;
+      border-radius: 1.5rem;
+      color: var(--paper);
+      background: var(--green);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card::before {
+      position: absolute;
+      top: -1.5rem;
+      right: -1.5rem;
+      width: 7rem;
+      height: 7rem;
+      border-radius: 50%;
+      background: var(--lime);
+      content: "";
+    }
+
+    .card-label {
+      position: relative;
+      z-index: 1;
+      color: var(--lime);
+      font-size: .75rem;
+      font-weight: 850;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .hero-card h2 {
+      position: relative;
+      z-index: 1;
+      max-width: 330px;
+      margin: 4rem 0 1rem;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+    }
+
+    .hero-card p {
+      position: relative;
+      z-index: 1;
+      max-width: 320px;
+      margin: 0;
+      color: #d5e4df;
+    }
+
+    .section {
+      padding: 6rem 0;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-heading h2 {
+      max-width: 560px;
+      margin: 0;
+      color: var(--green-dark);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+    }
+
+    .section-heading p {
+      max-width: 360px;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 1.25rem;
+      background: var(--line);
+    }
+
+    .service {
+      min-height: 245px;
+      padding: 2rem;
+      background: var(--paper);
+    }
+
+    .service-number {
+      display: grid;
+      width: 2.5rem;
+      height: 2.5rem;
+      place-items: center;
+      margin-bottom: 3rem;
+      border-radius: .75rem;
+      color: var(--green);
+      background: #e7f0d7;
+      font-size: .82rem;
+      font-weight: 850;
+    }
+
+    .service h3 {
+      margin: 0 0 .75rem;
+      color: var(--green-dark);
+      font-size: 1.35rem;
+    }
+
+    .service p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .feature {
+      color: var(--paper);
+      background: var(--green-dark);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .feature .eyebrow {
+      color: var(--lime);
+    }
+
+    .feature h2 {
+      margin: 0;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+    }
+
+    .feature-intro {
+      margin: 1.5rem 0 0;
+      color: #c8d8d2;
+    }
+
+    .feature-list {
+      display: grid;
+      gap: 1rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .feature-list li {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .16);
+    }
+
+    .feature-list li:first-child {
+      padding-top: 0;
+    }
+
+    .check {
+      display: grid;
+      flex: 0 0 1.5rem;
+      width: 1.5rem;
+      height: 1.5rem;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--green-dark);
+      background: var(--lime);
+      font-size: .8rem;
+      font-weight: 900;
+    }
+
+    .feature-list strong {
+      display: block;
+      margin-bottom: .2rem;
+      color: #fff;
+    }
+
+    .feature-list span {
+      color: #c8d8d2;
+      font-size: .92rem;
+    }
+
+    .contact {
+      padding: 5rem 0 6rem;
+    }
+
+    .contact-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      padding: 3rem;
+      border-radius: 1.5rem;
+      background: var(--lime);
+    }
+
+    .contact-card h2 {
+      max-width: 600px;
+      margin: 0;
+      color: var(--green-dark);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+    }
+
+    .contact-card p {
+      max-width: 580px;
+      margin: 1rem 0 0;
+      color: #38524a;
+    }
+
+    .contact-email {
+      flex: 0 0 auto;
+      color: var(--green-dark);
+      font-size: .95rem;
+      font-weight: 850;
+      text-decoration: none;
+    }
+
+    .site-footer {
+      padding: 1.5rem 0 2rem;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .85rem;
+    }
+
+    .footer-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    @media (max-width: 800px) {
+      .hero-grid,
+      .feature-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .hero {
+        padding: 4rem 0 5rem;
+      }
+
+      .hero-card {
+        min-height: 300px;
+      }
+
+      .service-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .service {
+        min-height: auto;
+      }
+
+      .service-number {
+        margin-bottom: 2rem;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .container {
+        width: min(100% - 2rem, 1120px);
+      }
+
+      .nav-links a:not(.nav-cta) {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 3rem;
+      }
+
+      .section {
+        padding: 4rem 0;
+      }
+
+      .section-heading,
+      .contact-card,
+      .footer-content {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .contact {
+        padding: 4rem 0;
+      }
+
+      .contact-card {
+        padding: 2rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .button {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="brand" href="#">
+        <span class="brand-mark" aria-hidden="true">P</span>
+        Pinoy Freelance Odooers
+      </a>
+      <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#solution">Our solution</a>
+        <a class="nav-cta" href="https://mail.google.com/mail/?view=cm&fs=1&to=pinoyfreelanceodooers@gmail.com&su=Odoo%20Development%20Inquiry" target="_blank" rel="noopener">Let's talk</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-grid container">
+        <div>
+          <p class="eyebrow">Odoo development, made practical</p>
+          <h1>Better systems for the way your business works.</h1>
+          <p class="hero-copy">We help organizations implement, customize, and improve Odoo with solutions that are clear, useful, and built around real workflows.</p>
+          <div class="actions">
+            <a class="button button-primary" href="https://mail.google.com/mail/?view=cm&fs=1&to=pinoyfreelanceodooers@gmail.com&su=Odoo%20Development%20Inquiry" target="_blank" rel="noopener">Start an inquiry <span aria-hidden="true">&nbsp;→</span></a>
+            <a class="button button-secondary" href="#services">Explore services</a>
+          </div>
+        </div>
+        <aside class="hero-card" aria-label="About Pinoy Freelance Odooers">
+          <span class="card-label">Pinoy Freelance Odooers</span>
+          <h2>Make Odoo work harder for you.</h2>
+          <p>From implementation to custom development, we turn business needs into dependable Odoo workflows.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Focused expertise. Useful outcomes.</h2>
+          <p>We work with you to shape Odoo around your processes instead of forcing your processes to fit a system.</p>
+        </div>
+        <div class="service-grid">
+          <article class="service">
+            <div class="service-number">01</div>
+            <h3>Implementation</h3>
+            <p>Configure and launch Odoo with a practical setup aligned with your organization.</p>
+          </article>
+          <article class="service">
+            <div class="service-number">02</div>
+            <h3>Custom development</h3>
+            <p>Build modules, features, and integrations for requirements that standard tools cannot cover.</p>
+          </article>
+          <article class="service">
+            <div class="service-number">03</div>
+            <h3>Support & improvement</h3>
+            <p>Troubleshoot issues, automate workflows, and continuously improve your Odoo environment.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section feature" id="solution">
+      <div class="feature-grid container">
+        <div>
+          <p class="eyebrow">What we are marketing</p>
+          <h2>One organized place for every event.</h2>
+          <p class="feature-intro">Our Event Management and Attendance System helps organizations manage events and track participation more efficiently inside Odoo.</p>
+        </div>
+        <ul class="feature-list">
+          <li>
+            <span class="check" aria-hidden="true">✓</span>
+            <div><strong>Event registration</strong><span>Keep participant information organized from sign-up to attendance.</span></div>
+          </li>
+          <li>
+            <span class="check" aria-hidden="true">✓</span>
+            <div><strong>Attendance monitoring</strong><span>Track participation with a clearer, more reliable process.</span></div>
+          </li>
+          <li>
+            <span class="check" aria-hidden="true">✓</span>
+            <div><strong>Centralized records</strong><span>Bring event details and reporting into one connected workflow.</span></div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="contact">
+      <div class="contact-card container">
+        <div>
+          <h2>Looking for Freelance Odoo developers?</h2>
+          <p>Share your organization, requirements, and timeline. Let’s explore what we can build together.</p>
+        </div>
+        <a class="contact-email" href="https://mail.google.com/mail/?view=cm&fs=1&to=pinoyfreelanceodooers@gmail.com&su=Odoo%20Development%20Inquiry&body=Hello%20Pinoy%20Freelance%20Odooers%2C%0A%0AI%20would%20like%20to%20discuss%3A%0A%0AProject%20or%20organization%3A%20%0ARequirements%3A%20%0ATimeline%3A%20" target="_blank" rel="noopener">pinoyfreelanceodooers@gmail.com&nbsp; ↗</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content container">
+      <span>© 2026 Pinoy Freelance Odooers</span>
+      <span>Odoo development for better workflows.</span>
+    </div>
+  </footer>
+</body>
+</html>
